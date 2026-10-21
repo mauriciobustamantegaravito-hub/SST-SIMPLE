@@ -158,7 +158,17 @@ export function AnimatedScore({ target = 68 }: { target?: number }) {
   }, [target]);
 
   return (
-    <div className="score" style={{ "--score-progress": `${value}%` } as React.CSSProperties}>
+    <div className="score" aria-label={`Avance 5S: ${value}%`}>
+      <svg className="score-ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle className="score-ring-track" cx="60" cy="60" r="52" />
+        <circle
+          className="score-ring-progress"
+          cx="60"
+          cy="60"
+          r="52"
+          style={{ strokeDashoffset: `${326.73 - (326.73 * value) / 100}` }}
+        />
+      </svg>
       <div className="score-content">
         <strong aria-live="polite">{value}</strong>
         <small>avance 5S</small>
