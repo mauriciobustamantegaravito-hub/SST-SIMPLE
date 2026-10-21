@@ -135,9 +135,24 @@ export function AnimatedBackground() {
 }
 
 export function AnimatedScore({ target = 68 }: { target?: number }) {
+  const scoreRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState(0);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
+    const element = scoreRef.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setStarted(true);
+      observer.disconnect();
+    }, { threshold: 0.35, rootMargin: "0px 0px -10% 0px" });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
       const timeout = window.setTimeout(() => setValue(target), 0);
@@ -155,10 +170,10 @@ export function AnimatedScore({ target = 68 }: { target?: number }) {
     };
     frame = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(frame);
-  }, [target]);
+  }, [started, target]);
 
   return (
-    <div className="score" role="progressbar" aria-label="Avance 5S" aria-valuemin={0} aria-valuemax={100} aria-valuenow={value}>
+    <div ref={scoreRef} className="score" role="progressbar" aria-label="Avance 5S" aria-valuemin={0} aria-valuemax={100} aria-valuenow={value}>
       <svg className="score-ring" viewBox="0 0 120 120" aria-hidden="true">
         <circle className="score-ring-track" cx="60" cy="60" r="52" />
         <circle
