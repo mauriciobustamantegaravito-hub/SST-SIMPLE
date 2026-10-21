@@ -146,19 +146,19 @@ export function AnimatedScore({ target = 68 }: { target?: number }) {
 
     const start = performance.now();
     const duration = 1800;
-    const tick = () => {
-      const progress = Math.min((performance.now() - start) / duration, 1);
+    let frame = 0;
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(target * eased));
-      if (progress >= 1) window.clearInterval(interval);
+      if (progress < 1) frame = window.requestAnimationFrame(tick);
     };
-    const interval = window.setInterval(tick, 40);
-    tick();
-    return () => window.clearInterval(interval);
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
   }, [target]);
 
   return (
-    <div className="score" aria-label={`Avance 5S: ${value}%`}>
+    <div className="score" role="progressbar" aria-label="Avance 5S" aria-valuemin={0} aria-valuemax={100} aria-valuenow={value}>
       <svg className="score-ring" viewBox="0 0 120 120" aria-hidden="true">
         <circle className="score-ring-track" cx="60" cy="60" r="52" />
         <circle
