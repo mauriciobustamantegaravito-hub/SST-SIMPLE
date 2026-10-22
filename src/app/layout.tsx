@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeSelector } from "@/components/ThemeSelector";
 
 const geistSans = Geist({
   variable: "--font-body",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body><ThemeSelector />{children}</body>
     </html>
   );
 }

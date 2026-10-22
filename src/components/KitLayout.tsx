@@ -18,6 +18,8 @@ export function KitLayout({ active, children }: { active: string; children: Reac
     ["Seguimiento", "/kit/seguimiento"],
   ];
 
+  const step = links.findIndex(([, href]) => href === active);
+
   return (
     <div className="kit-shell">
       <header className="kit-header">
@@ -28,11 +30,19 @@ export function KitLayout({ active, children }: { active: string; children: Reac
         <aside className="kit-sidebar" aria-label="Navegación del kit">
           <p className="kit-sidebar-label">Tu espacio de trabajo</p>
           <nav>
-            {links.map(([label, href]) => <Link className={active === href ? "active" : ""} href={href} key={href}>{label}</Link>)}
+            {links.map(([label, href]) => <Link className={active === href ? "active" : ""} href={href} aria-current={active === href ? "page" : undefined} key={href}>{label}</Link>)}
           </nav>
           <Link className="kit-back" href="/">← Volver a la página</Link>
         </aside>
-        <main className="kit-content">{children}</main>
+        <main className="kit-content">
+          <p className="muted-note">{step > 0 ? `Paso ${step} de 4 · ${links[step][0]}` : "Empieza aquí · Guía del recorrido"}</p>
+          {children}
+          <nav className="actions" aria-label="Recorrido paso a paso">
+            {step > 0 && <Link className="button button-secondary" href={links[step - 1][1]}>← Anterior: {links[step - 1][0]}</Link>}
+            {step >= 0 && step < links.length - 1 && <Link className="button button-primary" href={links[step + 1][1]}>{step === 0 ? "Empezar" : "Siguiente"}: {links[step + 1][0]} →</Link>}
+            {step === links.length - 1 && <Link className="button button-primary" href="/kit/plan-de-accion">Revisar mis acciones →</Link>}
+          </nav>
+        </main>
       </div>
     </div>
   );

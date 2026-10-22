@@ -264,6 +264,25 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 640px) { .container { width: min(100% - 28px, 1180px); } .nav { height: 70px; } .nav-links a:not(.nav-cta) { display: none; } .nav-links { gap: 0; } .nav-cta { padding: 10px 13px; font-size: 9px; } .hero { padding: 56px 0 70px; } .hero h1 { margin-top: 22px; font-size: clamp(3.5rem, 17vw, 5.4rem); } .hero-copy { font-size: 15px; } .board { transform: rotate(0); padding: 6px; } .board-inner { padding: 17px; } .board-main { grid-template-columns: 112px 1fr; gap: 15px; padding: 21px 0; } .score { width: 103px; height: 103px; padding: 9px; } .score strong { font-size: 30px; } .score small { margin-top: -27px; font-size: 7px; } .board-main h3 { font-size: 21px; } .board-main p { font-size: 10px; } .check { padding: 10px; font-size: 10px; } .intro-strip .container { grid-template-columns: 1fr 1fr; } .strip-item { padding: 17px 10px; } .strip-item:nth-child(3) { padding-left: 0; border-left: 0; } .strip-value { font-size: 16px; } .section-pad { padding: 78px 0; } .section-head { display: block; margin-bottom: 34px; } .section-head h2 { font-size: 3.2rem; } .section-head p { margin-top: 20px; } .route { grid-template-columns: 1fr; gap: 11px; } .route::before { display: none; } .route-card, .route-card:nth-child(2), .route-card:nth-child(3) { min-height: 190px; margin-top: 0; } .route-number { margin-bottom: 23px; } .kit-deck { display: flex; overflow-x: auto; gap: 14px; padding: 18px 8px 28px 4px; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: thin; } .kit-card { flex: 0 0 82vw; min-height: 260px; padding: 20px 17px; } .kit-card h3 { margin-top: 42px; font-size: 25px; } .kit-card p { font-size: 12px; } .demo h2 { font-size: 3.4rem; } .timeline-item { grid-template-columns: 54px 1fr; } .timeline-index { font-size: 30px; } .offers { grid-template-columns: 1fr; } .offer { padding: 23px; } .offer-price { font-size: 29px; } .footer-grid { display: block; } .footer-meta { margin-top: 22px; text-align: left; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
 
+
+/* Theme selection shared by the landing page and every kit screen. */
+.theme-toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:10px; padding:10px max(14px, calc((100% - 1180px)/2)); background:var(--paper); color:var(--ink); border-bottom:1px solid var(--line); font-size:12px; }
+.theme-toolbar select { min-height:44px; padding:8px 12px; border:1px solid var(--line); border-radius:12px; background:var(--white); color:var(--ink); font:inherit; }
+:root[data-theme="blanco"] { color-scheme:light; --paper:#ffffff; --paper-deep:#f0f5f2; --white:#ffffff; --line:#b5c9bf; --muted:#40564b; }
+:root[data-theme="oscuro"] { color-scheme:dark; --paper:#101b17; --paper-deep:#182a22; --white:#20362c; --ink:#f4f6ee; --muted:#c4d5ca; --line:#567364; --olive:#79d8ab; }
+:root[data-theme="oscuro"] :is(.strip-value,.pullquote,.deck-hint,.form-grid label,.assistant-form label,.assistant-answer strong,.audit-summary strong,.button-secondary) { color:#a7ebc8; }
+:root[data-theme="oscuro"] :is(.notice-card,.audit-row) { background:#20362c; }
+:root[data-theme="oscuro"] :is(.metric-card.dark,.summary-board) { color:#fffaf0; }
+:root[data-theme="oscuro"] :is(.kit-card:nth-child(2),.metric-card.accent) { color:#202326; }
+:root[data-theme="oscuro"] .metric-icon { color:#a7ebc8 !important; }
+:root[data-theme="oscuro"] .metric-card.accent .metric-icon { color:#064f3c !important; }
+:root[data-theme="oscuro"] .kit-sidebar nav a.active { color:#fffaf0; }
+:root[data-theme="oscuro"] .assistant-error { color:#ffb5a7; }
+a:focus-visible, button:focus-visible, select:focus-visible { outline:3px solid var(--olive); outline-offset:4px; }
+.offer-top { flex-wrap:wrap; }
+.offer-price { font-size:clamp(1.45rem, 2.7vw, 2.3rem); }
+@media(max-width:640px) { .offer-top { flex-direction:column; gap:12px; } }
+
 /* Mobile kit hardening: keep every child inside the viewport. */
 @media (max-width: 640px) {
   .kit-header, .kit-layout, .kit-content, .kit-sidebar, .form-card, .audit-list, .summary-board, .assistant-card { min-width: 0; max-width: 100%; }
