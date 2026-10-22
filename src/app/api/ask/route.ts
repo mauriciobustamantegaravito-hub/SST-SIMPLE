@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     question,
     conversationId: typeof body.conversationId === "string" ? body.conversationId.slice(0, 120) : undefined,
     context: {
-      product: "SST Simple",
+      product: "Saanva SST",
       scope: ["kit digital 5S + SST", "auditoría 5S", "plan de acción", "seguimiento"],
       safety: "Responde como orientación general. No presentes la respuesta como certificación ni asesoría profesional.",
     },

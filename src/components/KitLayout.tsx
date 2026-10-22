@@ -21,7 +21,7 @@ export function KitLayout({ active, children }: { active: string; children: Reac
   return (
     <div className="kit-shell">
       <header className="kit-header">
-        <Link className="brand" href="/"><BrandMark /><span>SST SIMPLE</span></Link>
+        <Link className="brand" href="/"><BrandMark /><span>SAANVA SST</span></Link>
         <span className="kit-badge">KIT DIGITAL 5S + SST</span>
       </header>
       <div className="kit-layout">
